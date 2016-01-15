@@ -1,5 +1,5 @@
 
-##6
+#General Concepts
 ### Syntax parsers
 A program that reads your code and determine what it does and if its grammar is correct.
 
@@ -11,15 +11,14 @@ Place where the parts of your code sits, is important.
 ### Execution contexts
 A wrapper to help manage the code that is running.
 
-##7
 
-###Name/Value pair
+### Name/Value pair
 A name which maps to a unique value
 `Address: '100 main str`
 
-###Object
+### Object
 A collection of name value pairs.
-```json
+```javascript
 
 	Address:
 		{
@@ -32,11 +31,11 @@ A collection of name value pairs.
 	}
 ```
 
-## Global Environment and The Global Object
+### Global Environment and The Global Object
 
 **Global = not inside a function**
 
-## Execution Context
+### Execution Context
 
 * Global Object = Window Object in browsers.
 * 'this' = Window Object in browsers.
@@ -72,12 +71,13 @@ A collection of name value pairs.
 
 Executes the code line by line.
 
-## Single Threaded Synchronous Execution
+### Single Threaded Synchronous Execution
 One at a time in order.
 
-## Function invocation 
+### Function invocation 
+Execute, run a function.
 
-## Execution Stack
+### Execution Stack
 
 When a function is called a new execution context is created and put at the top of the execution stack.
 
@@ -94,11 +94,10 @@ The execution stack is.
 * a() Execution Context (create and execute)
 * Global Execution Context (created and code executed)
 
-## Functions, contexts, variable environments.
 ### Variable environments.
 Where the variables live, and how they relate to each other un memory.
 
-##Scope Chain
+### Scope Chain
 Functions use outer environments to find variables that are not in its execution contexts.
 ```javascript
 	
@@ -135,15 +134,16 @@ Functions use outer environments to find variables that are not in its execution
 	//Returns
 	> 2
 	//'b' outers environment is the 'a' environment.
-	```
 
-## Scope
+```
+
+### Scope
 Scope is where a variable is available in your code 
 
-## ES6 let
+### ES6 let
 Block scoping: define a variable that it is only available in its block(if block, for loop block...), and can not be used until is declared.
 
-## Asynchronous
+### Asynchronous
 More than one at a time.
 Event Queue is processed after the execution stack is empty.
 
