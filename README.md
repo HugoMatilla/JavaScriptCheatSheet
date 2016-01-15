@@ -16,7 +16,7 @@ A wrapper to help manage the code that is running.
 A name which maps to a unique value
 ```javascript
 
-	Address: '100 main str`
+	Address: '100 main str'
 ```	
 
 ## Object
