@@ -71,11 +71,10 @@ A collection of name value pairs.
 ```
 
 ## Execution Phase
-
 Executes the code line by line.
 
 ## Single Threaded Synchronous Execution
-One at a time in order.
+One at a time, in order.
 
 ## Function invocation 
 Execute, run a function.
@@ -98,7 +97,7 @@ The execution stack is.
 * Global Execution Context (created and code executed)
 
 ## Variable environments.
-Where the variables live, and how they relate to each other un memory.
+Where the variables live, and how they relate to each other in memory.
 
 ## Scope Chain
 Functions use outer environments to find variables that are not in its execution contexts.
@@ -175,7 +174,63 @@ Event Queue is processed after the execution stack is empty.
 	> click event
 
 ```	
+#3 Types and Operators
+##Dynamic Typing
+Variable types are fugured out while the code is running.
 
+##Primitive Types
+Data that represent a single value (not an object)
 
+1. `undefined`: lack of exixtence (do not set to this value)
+2. `null`: lack of exixtence
+3. `boolean`
+4. `number`: Floating point
+5. `string`
+6. `symbol`: ES6 
+
+##Operators
+A special function written differently as common functions. 
+
+* Infix notation `3 + 4` used in javascript  
+* Prefix notation `+3 4`  
+* Postfix notation `3 4+`  
+
+## Precedence and Associativity
+Precedence: Which Operator function gets called first.
+
+Associativity: What order Operator functions get called: left or right or right to left
+```javascript
+
+	var a = 2, b = 3, c = 4
+	a = b = c
+	//all equals to 4
+```
+[Operator precedence and Associativity table](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
+
+## Coercion
+Converting a value to one type to another
+
+```javascript
+	
+	var a = 1 + '2';
+	// 12
+```
+
+## Comparasion Operators
+Use `===` 99% of the time unlesss you want to coarce and you know what you spect of the coarce.
+
+[Equality comparisons and sameness](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
+
+## Default values
+
+```javascript
+
+	function greet(name){
+		name = name || '<Your name here>'
+		console.log('Hello ' + name)
+	}
+
+	greet();
+```
 
 
