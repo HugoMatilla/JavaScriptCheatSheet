@@ -52,7 +52,7 @@ A collection of name value pairs.
 * Outer Environment	
 * "Hoisting" Setup Memory Space for Variables and functions 
 	* Functions are set to memory entirely (name and code).
-	* Variables are set to a placeholder called _undefined_. Becuase the JS engine won't know the space until it executes it. All variables are initialy set to _undefined_.
+	* Variables are set to a placeholder called _undefined_. Because the JS engine won't know the space until it executes it. All variables are initialy set to _undefined_.
 
 ```javascript
 
@@ -483,7 +483,8 @@ Object literal with mehtods. (functions inside an objects are called methods)
 	c.log(); // Will show the c object where in its 'name' property will be 'Updated c object';
 ```
 
-Creating a function inside an object and using `this` inside it will point to the `Window` object instead to the object.
+Creating a function inside an object (an internal function) and using `this` inside it, will point to the `Window` object instead to the object.
+
 To fix this we can use the `self` pattern.
 
 ```javascript
@@ -507,5 +508,82 @@ To fix this we can use the `self` pattern.
 
 	c.log();
 ```
+##Arrays
+Arrays can hold anything and we can use them without any problem.
 
+```javascript
 
+	var arr = [
+	    1, 
+	    false, 
+	    {
+	        name: 'Tony',
+	        address: '111 Main St.'
+	    },
+	    function(name) {
+	        var greeting = 'Hello ';
+	        console.log(greeting + name);
+	    },
+	    "hello"
+	];
+
+	console.log(arr);
+	arr[3](arr[2].name); // 'Hello Tony'
+
+```
+
+##'arguments' and SPREAD
+
+The keyword `arguments` hold all the parameters that you pass to a function.
+`arguments` is an _array like_ value.
+
+```javascript
+
+	function greet(firstname, lastname, language) {
+	    if (arguments.length === 0) {
+	        console.log('Missing parameters!');
+	        return;
+	    }
+	    console.log(arguments);
+	    console.log('arg 0: ' + arguments[0]);
+	}
+
+	greet(); // Does not break
+	greet('John'); // Sets 'John' to the first parameter
+
+	// in ES6 I can do:  function greet(firstname, ...other)
+	// and 'other' will be an array that contains the rest of the arguments
+```
+
+##Overloading
+
+Just create a function with different names.
+
+```javascript
+
+	function greet(firstname, lastname, language) {
+		...
+	}
+
+	function greetEnglish(firstname, lastname) {
+	    greet(firstname, lastname, 'en');   
+	}
+
+	greetEnglish('John', 'Doe');
+```
+
+## Automatic semicolon insertion
+Always put semicolons to avoid automatic insertion problems.
+
+Because there is a new line after `return` javascript automatically inserts a semicolon. Use `return {`  instead
+```javascript
+
+	function getPerson() {
+	    return 
+	    {
+	        firstname: 'Tony'
+	    }
+	}
+
+	console.log(getPerson());
+```
