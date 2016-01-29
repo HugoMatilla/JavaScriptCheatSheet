@@ -176,7 +176,7 @@ Event Queue is processed after the execution stack is empty.
 ```	
 #3 Types and Operators
 ##Dynamic Typing
-Variable types are fugured out while the code is running.
+Variable types are figured out while the code is running.
 
 ##Primitive Types
 Data that represent a single value (not an object)
@@ -233,4 +233,197 @@ Use `===` 99% of the time unlesss you want to coarce and you know what you spect
 	greet();
 ```
 
+#Objects and Functions
 
+##Objects and Dots
+
+```javascript
+	
+	var person = new Object();
+
+	person["firstname"] = "Tony";
+
+	var firstNameProperty = "firstname";
+
+	//Computed member access
+	console.log(person[firstNameProperty]);
+
+	//Member access
+	console.log(person.firstname);
+
+	// An object inside another object (subobjects).
+	person.address = new Object();
+	
+	// Left to right Associativity. Person then address then street.
+	person.address.street = "111 Main St.";
+	
+	console.log(person.address.street);
+	
+	//Same thing
+	console.log(person["address"]["street"]);
+
+```
+
+##Object literals
+
+Shorthand using curly braces. 
+```javascript
+
+	var person = { 
+    	firstname: 'Tony', // They can be initialized
+    	address: {
+        	street: '111 Main St.',
+    	}
+	};
+
+```
+
+```javascript
+	
+	var Tony = { 
+    	firstname: 'Tony',
+    	address: {
+        	street: '111 Main St.',
+    	}
+	};
+
+	function greet(person) {
+    	console.log('Hi ' + person.firstname);
+	}
+
+	greet(Tony);
+
+	// Creating an object on the fly
+	greet({ 
+	    firstname: 'Mary', 
+	    lastname: 'Doe' 
+	});
+
+	// Add new properties on the fly
+	Tony.address2 = {
+    	street: '333 Second St.'
+	}
+```
+
+## NameSpace
+
+A container for variables and functions.
+Faking name spacing Containt objects, methods and properties inside a container object.
+
+```javascript
+
+	var greet = 'Hello!';
+	var greet = 'Hola!'; 
+
+	console.log(greet); // Get Hola!
+
+	var english = {};
+	var spanish = {};
+
+	english.greet = 'Hello!';
+	spanish.greet = 'Hola!';
+
+	console.log(english);
+```
+
+## JSON and Object literals
+A JSON is an Object
+An Object can not be JSON
+
+Properties have to be wrapped in cuotes
+No functions as values
+```javascript
+
+	{ 
+		"firstname": "Mary", 
+		"isAProgrammer": true 
+	}
+```
+
+```javascript
+
+	var objectLiteral = {
+	    firstname: 'Mary',
+	    isAProgrammer: true
+	}
+
+	console.log(JSON.stringify(objectLiteral));
+
+	var jsonValue = JSON.parse('{ "firstname": "Mary", "isAProgrammer": true }');
+```
+
+## Functions and Objects
+
+**First class functions.**
+They can:
+* Assign variables to have a values that is a function
+* Pass functions as parameters
+* Create functions on the fly
+
+Fucntions are special Objects.
+
+They can have 
+
+* Primitives
+* Objects
+* Other functions
+
+	Only for functions
+* **Name**: Can be optional: _annonymous_
+* **Code**: is invocable.
+
+```javascript
+
+	function greet() {
+    	console.log('hi');   
+	}
+
+	greet.language = 'english';
+	console.log(greet.language); // 'english'
+```
+
+##Functon Statements and Expression
+**Expression**: unit of code that results in a value
+
+**Statement**: Does not return a value ie. `if statement`
+
+Function statement
+```javascript
+
+	//This function has a name, but is not assigned
+	function greet() { 
+    	console.log('hi');   
+	}
+
+	greet();
+
+```
+
+Function expression 
+```javascript
+
+	//This function has no name, but is assigned to a variable
+	var anonymousGreet = function() {
+    	console.log('hi');   
+	}	
+
+
+	anonymousGreet();
+
+
+```
+
+Pass a function to a function
+
+```javascript
+
+	function log(a) {
+	   a();    
+	}
+
+	log(function() {
+	    console.log('hi');   
+	});
+```
+
+## By Value vs. by Reference
