@@ -308,6 +308,7 @@ Shorthand using curly braces.
 ## NameSpace
 
 A container for variables and functions.
+
 Faking name spacing Containt objects, methods and properties inside a container object.
 
 ```javascript
@@ -328,10 +329,13 @@ Faking name spacing Containt objects, methods and properties inside a container 
 
 ## JSON and Object literals
 A JSON is an Object
+
 An Object can not be JSON
 
 Properties have to be wrapped in cuotes
+
 No functions as values
+
 ```javascript
 
 	{ 
@@ -356,6 +360,7 @@ No functions as values
 
 **First class functions.**
 They can:
+
 * Assign variables to have a values that is a function
 * Pass functions as parameters
 * Create functions on the fly
@@ -427,3 +432,80 @@ Pass a function to a function
 ```
 
 ## By Value vs. by Reference
+
+**Primitive** values are passed **by value**, are copied in a new memory address.
+
+**Objects** are passed **by reference**, a new pointer is created pointing to the same address.
+
+`=` Operator sets up a new memory space (new address)
+
+```javascript
+
+	var c = { greeting: 'hi' };
+	var d;
+	d = c; // d and c point to the same address
+
+	c = { greeting: 'howdy' }; / // d and c not point anymore to the same address
+	console.log(c);
+	console.log(d);
+```
+
+##Objects, Functions and 'this'
+
+Calling  `this` from a function,  will point always to the `Window` object.
+
+```javascript
+	
+	function a() {
+	    console.log(this);
+	}
+
+	var b = function() {
+	    console.log(this);   
+	}
+
+	a();
+	b();
+```
+
+Object literal with mehtods. (functions inside an objects are called methods)
+
+```javascript
+
+	var c = {
+	    name: 'The c object',
+	    log: function() {
+	    	this.name = 'Updated c object';
+	        console.log(this);  // Point to the 'c' object
+	    }
+	}
+
+	c.log(); // Will show the c object where in its 'name' property will be 'Updated c object';
+```
+
+Creating a function inside an object and using `this` inside it will point to the `Window` object instead to the object.
+To fix this we can use the `self` pattern.
+
+```javascript
+
+	var c = {
+	    name: 'The c object',
+	    log: function() {
+	        var self = this;
+	        
+	        self.name = 'Updated c object';
+	        console.log(self);
+	        
+	        var setname = function(newname) {
+	        	this.name = newname; // Here 'this' points to the 'Window' object instead of to 'c'
+	            self.name = newname; // Here 'this' points to 'c'  
+	        }
+	        setname('Updated again! The c object');
+	        console.log(self);
+	    }
+	}
+
+	c.log();
+```
+
+
