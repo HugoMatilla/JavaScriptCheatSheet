@@ -316,7 +316,7 @@ Faking name spacing Containt objects, methods and properties inside a container 
 	var greet = 'Hello!';
 	var greet = 'Hola!'; 
 
-	console.log(greet); // Get Hola!
+	console.log(greet); // Returns: Hola!
 
 	var english = {};
 	var spanish = {};
@@ -324,18 +324,19 @@ Faking name spacing Containt objects, methods and properties inside a container 
 	english.greet = 'Hello!';
 	spanish.greet = 'Hola!';
 
-	console.log(english);
+	console.log(english); // Returns:  Object {greet: "Hello!"}
 ```
 
 ## JSON and Object literals
 A JSON is an Object
 
-An Object can not be JSON
+An Object could not be a JSON
 
 Properties have to be wrapped in cuotes
 
 No functions as values
 
+**JSON**
 ```javascript
 
 	{ 
@@ -344,6 +345,7 @@ No functions as values
 	}
 ```
 
+**OBJECT**
 ```javascript
 
 	var objectLiteral = {
@@ -445,9 +447,13 @@ Pass a function to a function
 	var d;
 	d = c; // d and c point to the same address
 
-	c = { greeting: 'howdy' }; / // d and c not point anymore to the same address
+	c = { greeting: 'howdy' }; / // d and c do not point anymore to the same address
 	console.log(c);
 	console.log(d);
+	
+	//Returns
+	> howdy
+	> hi
 ```
 
 ##Objects, Functions and 'this'
@@ -466,6 +472,10 @@ Calling  `this` from a function,  will point always to the `Window` object.
 
 	a();
 	b();
+
+	//Returns
+	> Window
+	> Window
 ```
 
 Object literal with mehtods. (functions inside an objects are called methods)
@@ -578,6 +588,7 @@ Always put semicolons to avoid automatic insertion problems.
 Because there is a new line after `return` javascript automatically inserts a semicolon. Use `return {`  instead
 ```javascript
 
+	// unreachable code after return statement
 	function getPerson() {
 	    return 
 	    {
@@ -585,5 +596,280 @@ Because there is a new line after `return` javascript automatically inserts a se
 	    }
 	}
 
-	console.log(getPerson());
+	console.log(getPerson()); 
+
+```
+
+## Immediately Invoked Functions Expressions (IIFEs)
+Run the function at the point it is created. Add a `()` after its declaration.
+
+```javascript
+
+	// function statement. Have to have a name.
+	function greet(name) {
+	    console.log('Hello ' + name);   
+	}
+	greet('John');
+
+	// using a function expression
+	var greetFunc = function(name) {
+	    console.log('Hello ' + name);
+	};
+	greetFunc('John');
+
+	// using an Immediately Invoked Function Expression (IIFE)
+	var greeting = function(name) {
+	    console.log('Hello ' + name);
+	}('John');
+```
+
+**IIFE**
+```javascript	
+	
+	var firstname = 'John';
+
+	//Function statement wrapped in parenthesys so javascript treat is as valid
+	// Remeber function statement have to have a name.
+	(function(name) {
+	    
+	    var greeting = 'Inside IIFE: Hello';
+	    console.log(greeting + ' ' + name);
+	    
+	}(firstname)); // IIFE Execute the function on the fly
+```
+
+##IIFE and Safe code
+Frameworks normally use IIFE to have its code close to external code.  
+An IIFE runs in its own execution context.  
+A framework would start with a parenthesys and close with another.  
+
+```javascript
+	
+	(function(global, name) {
+	    var greeting = 'Hello';
+	    global.greeting = 'Hello'; //We cann access the global object passing it as a parameter.
+	    console.log(greeting + ' ' + name);
+	    
+	}(window, 'John')); // IIFE
+```
+
+## Closures
+
+Closures allow us to access variables whose execution context has been remove from execution stack.
+`greet` context is removed after `var sayHi = greet('Hi');`is executed, but `sayHi('Tony');` still have access to the variable `whattosay` that is needed to execute the annonymous function inside `greet` This is because javascript allows executon contexts to closes in its outer variables.
+
+```javascript
+	
+	function greet(whattosay) {
+
+	   return function(name) {
+	       console.log(whattosay + ' ' + name);
+	   }
+	}
+
+	var sayHi = greet('Hi');
+	sayHi('Tony');
+```	
+
+
+```javascript
+
+	function buildFunctions() {
+	    var arr = [];
+	    for (var i = 0; i < 3; i++) {
+	    	let j = i;
+	        arr.push(
+	            function() {
+	                console.log(i);// Returns always 3, because the last state of the i val in memory is 3
+	                console.log(j);// Returns 0,1,2, beacuase 'let' is scope to the block, and makes a new variable every time in a different scope.   
+	            }
+	        )
+	    }
+	    
+	    return arr;
+	}
+
+	var fs = buildFunctions();
+
+	fs[0]();
+	fs[1]();
+	fs[2]();
+```
+
+To make it work in prior ES6 We need to have `i` in a new execution context everytime the loop runs. Use IIFE
+
+```javascript
+
+	function buildFunctions2() {
+ 
+	    var arr = [];
+	    
+	    for (var i = 0; i < 3; i++) {
+	        arr.push(
+	            (function(j) { // This function will be executed in a differnt execution context, 
+	            			   //  and all of them will be closed in in its closure.
+	                return function() { // We push the return of this function. So when this is call, instead of going up until the loop context, it only goes until the IIFE where 'j' was stored.
+	                    console.log(j);    
+	                }
+	            }(i))
+	        )
+	    }
+	    return arr;
+	}
+```
+
+## Function Factories
+
+```javascript
+
+	function makeGreeting(language) {
+ 
+	    return function(firstname, lastname) {
+	     
+	        if (language === 'en') {
+	            console.log('Hello ' + firstname + ' ' + lastname);   
+	        }
+
+	        if (language === 'es') {
+	            console.log('Hola ' + firstname + ' ' + lastname);   
+	        }
+	    }
+	}
+
+	var greetEnglish = makeGreeting('en'); // They were created in differnt execution contexts.
+	var greetSpanish = makeGreeting('es');
+```
+
+##Callback function
+A function you give to another function when the other function is finished.
+
+##Function
+Is a special type of object
+
+It has:
+
+* Name: optional
+* Code: invocable using '()'
+* bind() set 'this' to what we pass as parameter
+* call() like bind but it also  execute and can get parameters
+* apply() same as call, but parameters have to be an array
+
+```javascript
+
+	var person = {
+	    firstname: 'John',
+	    lastname: 'Doe',
+	    getFullName: function() {
+	        
+	        var fullname = this.firstname + ' ' + this.lastname;
+	        return fullname;
+	        
+	    }
+	}
+
+	var logName = function(lang1, lang2) {
+	    console.log('Logged: ' + this.getFullName());
+	}
+
+	var logPersonName = logName.bind(person);
+	logPersonName('en');
+
+	logName.call(person, 'en', 'es');
+	logName.apply(person, ['en', 'es']);
+
+```
+
+##Function borrowing
+```javascript
+
+	var person2 = {
+	    firstname: 'Jane',
+	    lastname: 'Doe'
+	}
+
+	console.log(person.getFullName.apply(person2));//or call()
+``` 
+
+##Function currying
+A copy of a function with preset parameters.
+
+```javascript
+	
+	function multiply(a, b) {
+    	return a*b;   
+	}
+
+	var multipleByTwo = multiply.bind(this, 2);
+	console.log(multipleByTwo(4)); // 8
+
+	var multipleByThree = multiply.bind(this, 3);
+	console.log(multipleByThree(4)); //12
+
+```
+
+##Functional programming
+```javascript
+
+	function mapForEach(arr, fn) {
+    
+	    var newArr = [];
+	    for (var i=0; i < arr.length; i++) {
+	        newArr.push(
+	            fn(arr[i])   
+	        )
+	    };
+	    
+	    return newArr;
+	}
+
+	var arr1 = [1,2,3];
+	console.log(arr1);
+
+	// Sample 1 add a function
+	var arr2 = mapForEach(arr1, function(item) {
+	   return item * 2; 
+	});
+	console.log(arr2); // [2,4,6];
+
+	// Sample 2 differnt output type
+	var arr3 = mapForEach(arr1, function(item) {
+	   return item > 2; 
+	});
+	console.log(arr3); //[false,false,true]
+
+	// Sample 3 Add function with new parameters
+	var checkPastLimit = function(limiter, item) {
+    	return item > limiter;   
+	}
+	var arr4 = mapForEach(arr1, checkPastLimit.bind(this, 1)); // bind is needed so we have a function that use only one parameter.
+	console.log(arr4); //[false,true,true]
+
+	// Sample 4 Simplify function with new parameters
+	//We can also simplified this not to use bind all the time
+	var checkPastLimitSimplified = function(limiter) {
+	    return function(limiter, item) {
+	        return item > limiter;   
+	    }.bind(this, limiter); 
+	};
+
+	var arr5 = mapForEach(arr1, checkPastLimitSimplified(1));
+	console.log(arr5);
+
+```
+
+Try to use always unmutable objects and return always new objects
+
+##Udnerscore.js
+
+[Underscore](http://underscorejs.org/docs/underscore.html)
+[lodash](https://lodash.com/)
+
+```javascript
+
+	var arr6 = _.map(arr1, function(item) { return item * 3 });
+	console.log(arr6);
+
+	var arr7 = _.filter([2,3,4,5,6,7], function(item) { return item % 2 === 0; });
+	console.log(arr7);
+
 ```
