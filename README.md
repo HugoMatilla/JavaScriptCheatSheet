@@ -363,7 +363,7 @@ No functions as values
 **First class functions.**
 They can:
 
-* Assign variables to have a values that is a function
+* Assign variables to have a value that is a function
 * Pass functions as parameters
 * Create functions on the fly
 
@@ -375,7 +375,7 @@ They can have
 * Objects
 * Other functions
 
-	Only for functions
+Only for functions
 * **Name**: Can be optional: _annonymous_
 * **Code**: is invocable.
 
@@ -478,7 +478,7 @@ Calling  `this` from a function,  will point always to the `Window` object.
 	> Window
 ```
 
-Object literal with mehtods. (functions inside an objects are called methods)
+Object literal with methods. (functions inside an objects are called methods)
 
 ```javascript
 
@@ -647,7 +647,7 @@ A framework would start with a parenthesys and close with another.
 	
 	(function(global, name) {
 	    var greeting = 'Hello';
-	    global.greeting = 'Hello'; //We cann access the global object passing it as a parameter.
+	    global.greeting = 'Hello'; //We can access the global object passing it as a parameter.
 	    console.log(greeting + ' ' + name);
 	    
 	}(window, 'John')); // IIFE
@@ -873,3 +873,280 @@ Try to use always unmutable objects and return always new objects
 	console.log(arr7);
 
 ```
+
+#Object Oriented JavaScript Prototypal Inheritance
+
+##Inheritance
+One object gets access  to the properties and methods of another object.
+
+## Classical Inheritance
+Java, C++, ...
+
+## Prototypal Inheritance
+JavaScript
+Simple, flexible, externsible.
+
+**Prototype** an object that is used (Inherited) by another object.
+Prototype chain. The chain of Prototypes that an object has.
+
+```javascript
+
+	var person = {
+	    firstname: 'Default',
+	    lastname: 'Default',
+	    getFullName: function() {
+	        return this.firstname + ' ' + this.lastname;  
+	    }
+	}
+
+	var john = {
+	    firstname: 'John',
+	    lastname: 'Doe'
+	}
+
+	// don't do this EVER! for demo purposes only!!!
+	john.__proto__ = person;
+	console.log(john.getFullName()); // John Doe. 'this' will be set in the prototype from the object origianted the call. In this case John.
+	console.log(john.firstname); // John
+
+	var jane = {
+	    firstname: 'Jane'   
+	}
+
+	jane.__proto__ = person;
+	console.log(jane.getFullName()); // Jane Default
+```
+
+## Reflection 
+An object can look at itself, listentning and changing its properties and methods
+
+```javascript
+
+	// don't do this EVER! for demo purposes only!!!
+	john.__proto__ = person;
+
+	for (var prop in john) {
+		console.log(prop + ': ' + john[prop]); // prop = firstname, lastname and getFullName
+	    if (john.hasOwnProperty(prop)) { // if is the object not in the prototype
+	        console.log(prop + ': ' + john[prop]); // prop = firstname and lastname
+	    }
+	}
+```
+
+**Extend** (Assign)
+Underscore library that place the properties in the object passed. 
+
+```javascript
+
+	var jane = {
+	    address: '111 Main St.',
+	    getFormalFullName: function() {
+	        return this.lastname + ', ' + this.firstname;   
+	    }
+	}
+
+	var jim = {
+	    getFirstName: function() {
+	        return firstname;   
+	    }
+	}
+
+	_.extend(john, jane, jim); //John will have the same properties as jim and jane
+
+	console.log(john); 
+
+	//Returns 
+	address: "111 Main St."
+	firstname: "John"
+	getFirstName: ()
+	getFormalFullName: ()
+	lastname: "Doe"
+```
+
+# Building Objects
+
+##_new_
+
+`new` set the this keyword to a new empty object
+If nothing is return from that function, instead of returning _undefined_ it will return an empty object.
+
+**Function constructor**. A function that lets me construct an object
+
+```javascript
+
+	function Person(firstname, lastname) { // This is a function constructor. 
+	 
+	    console.log(this); // Returns an empry object
+	    this.firstname = firstname;
+	    this.lastname = lastname;
+	    console.log('This function is invoked.'); // It is invoked because we called `new`
+	    
+	}
+
+	var john = new Person('John', 'Doe');
+	console.log(john); //	Person { firstname: "John", lastname: "Doe" } 
+```
+
+##Function constructors and Prototypes
+All functions have a prototype. An empty Object. Use only by the `new` operator.
+
+```javascript
+
+	Person.prototype.getFullName = function() {
+	    returning this.firstname + ' ' + this.lastname;   
+	}
+
+	var john = new Person('John', 'Doe'); // john points to Person.prototype as its prototype.
+	console.log(john); 
+	//Returns
+	firstname: "John"
+	lastname: "Doe"
+	__proto__: Person
+		constructor: Person(firstname, lastname)
+		getFullName: ()
+```
+
+Why not having functions in the function constructor? 
+Every copy of the object will get a copy of the function (space in memory). If we have it in the prototype, only one copy of the function will exist in memory for any number of objects created.
+
+Use Capital letters as first letter in any function constructor to identify it easily as a function constructor and reduce possible erros when calling them. Use Linters to help ypu with the process.
+
+## Built in Function Constructor
+Create objects that have primitives
+```javascript
+	
+	var a = new Number(3) // a --> Number {[[PrimitiveValue]]: 3}
+
+	var b = new String("Hugo") // b --> String {0: "H", 1: "u", 2: "g", 3: "o", length: 4, [[PrimitiveValue]]: "Hugo"}
+	// inside of the String object there is a primitive.
+
+```	
+Good to add functions to primitives objects
+
+```javascript
+
+	String.prototype.isLengthGreaterThan = function(limit) {
+	    return this.length > limit;  
+	}
+
+	console.log("John".isLengthGreaterThan(3)); // true
+
+	Number.prototype.isPositive = function() {
+	    return this > 0;   
+	}
+	console.log(3.isPositive); // ERROR: 3 is not an object.
+
+	var a = new Number(3) 
+	a.isPositive() // true
+```
+
+**They are dangeorous** better do not use built in function constructor, unless you really need them.
+You can look for libraries that help you. Like momentjs for Dates, instead of building your owns function constructor. 
+
+## Arrays and for..in
+In an array the property name are the indexes, that is why we can use it in square brackets. `myArray[0]`
+
+```javascript
+
+	var arr = ['John', 'Jane', 'Jim']
+	for (var prop in arr) {
+		console.log(prop + ': ' + arr[prop]); // 0:John, 1:Jane, 2:Jim
+	} 
+	// If we add
+	Array.prototype.myFeature='cool'; // it will return  0:John, 1:Jane, 2:Jim, myFeature:'cool'
+	//Use normal for loop
+
+```	
+## _Object.create_ and Pure prototypal inheritance
+
+```javascript
+
+	var person = {
+	    firstname: 'Default',
+	    lastname: 'Default',
+	    greet: function() {
+	        return 'Hi ' + this.firstname;   
+	    }
+	}
+
+	var john = Object.create(person); // Creates an empty object with the prototype of person
+	john.firstname = 'John'; // Adds values to the
+	john.lastname = 'Doe';
+	console.log(john); 
+```
+
+We can add functions on the fly.
+
+## Polyfill
+Code that adds a feature which the engine _may_ lack
+
+```javascript
+
+	// Object.create POLYFILL
+	if (!Object.create) {
+	  Object.create = function (o) {
+	    if (arguments.length > 1) {
+	      throw new Error('Object.create implementation'
+	      + ' only accepts the first parameter.');
+	    }
+	    function F() {}  // Creates an empty function
+	    F.prototype = o; // Set the prototype of the function equal to the object we passed
+	    return new F();  // Creates a new empty obecjt, runs an empty function and points the prototype of the new empty object to what we passed in.
+	  };
+	}
+```
+The object becomes a
+
+## ES6 and Classes
+
+_class_  at the end it is just an object and _extends_ is syntactic sugar.
+
+## _typeof_ and _instanceof_
+```javascript
+
+	console.log(typeof 3); //number
+
+	console.log(typeof "Hello"); // String
+
+	console.log(typeof {}); //Object
+
+	var d = [];
+	console.log(typeof d); // Object.
+	console.log(Object.prototype.toString.call(d)); // better! [object Array]
+```
+
+```javascript
+
+	function Person(name) {
+    	this.name = name;
+	}
+
+	var e = new Person('Jane');
+	console.log(typeof e); // object
+	console.log(e instanceof Person); // true
+
+	console.log(typeof undefined); // undefined
+	console.log(typeof null); // Object. a bug since, like, forever...
+
+	var z = function() { };
+	console.log(typeof z); // function
+```
+
+##Strict Mode
+
+```javascript
+
+	function logNewPerson() {
+	    "use strict";
+	    
+	    var person2;
+	    persom2 = {};
+	    console.log(persom2); //Uncaught exception
+	}
+
+	var person;
+	persom = {};
+	console.log(persom);
+	logNewPerson();
+```
+
