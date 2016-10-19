@@ -1,4 +1,4 @@
-#Table of Content
+#Table of Contents
 - [Table of Contents](#table-of-content)
 - [General Concepts](#general-concepts)
 	- [Syntax parsers](#syntax-parsers)
