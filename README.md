@@ -1,5 +1,77 @@
 
-#General Concepts
+#General Concepts<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [General Concepts](#general-concepts)
+	- [Syntax parsers](#syntax-parsers)
+	- [Lexical environments](#lexical-environments)
+	- [Execution contexts](#execution-contexts)
+	- [Name/Value pair](#namevalue-pair)
+	- [Object](#object)
+	- [Global Environment and The Global Object](#global-environment-and-the-global-object)
+	- [Execution Context](#execution-context)
+	- [Creation Phase:](#creation-phase)
+	- [Execution Phase](#execution-phase)
+	- [Single Threaded Synchronous Execution](#single-threaded-synchronous-execution)
+	- [Function invocation](#function-invocation)
+	- [Execution Stack](#execution-stack)
+	- [Variable environments.](#variable-environments)
+	- [Scope Chain](#scope-chain)
+	- [Scope](#scope)
+	- [ES6 let](#es6-let)
+	- [Asynchronous](#asynchronous)
+- [3 Types and Operators](#3-types-and-operators)
+	- [Dynamic Typing](#dynamic-typing)
+	- [Primitive Types](#primitive-types)
+	- [Operators](#operators)
+	- [Precedence and Associativity](#precedence-and-associativity)
+	- [Coercion](#coercion)
+	- [Comparison Operators](#comparison-operators)
+	- [Default values](#default-values)
+- [Objects and Functions](#objects-and-functions)
+	- [Objects and Dots](#objects-and-dots)
+	- [Object literals](#object-literals)
+	- [NameSpace](#namespace)
+	- [JSON and Object literals](#json-and-object-literals)
+	- [Functions and Objects](#functions-and-objects)
+	- [Function Statements and Expression](#function-statements-and-expression)
+	- [By Value vs. by Reference](#by-value-vs-by-reference)
+	- [Objects, Functions and 'this'](#objects-functions-and-this)
+	- [Arrays](#arrays)
+	- ['arguments' and SPREAD](#arguments-and-spread)
+	- [Overloading](#overloading)
+	- [Automatic semicolon insertion](#automatic-semicolon-insertion)
+	- [Immediately Invoked Functions Expressions (IIFEs)](#immediately-invoked-functions-expressions-iifes)
+	- [IIFE and Safe code](#iife-and-safe-code)
+	- [Closures](#closures)
+	- [Function Factories](#function-factories)
+	- [Callback function](#callback-function)
+	- [Function](#function)
+	- [Function borrowing](#function-borrowing)
+	- [Function currying](#function-currying)
+	- [Functional programming](#functional-programming)
+	- [Udnerscore.js](#udnerscorejs)
+- [Object Oriented JavaScript Prototypal Inheritance](#object-oriented-javascript-prototypal-inheritance)
+	- [Inheritance](#inheritance)
+	- [Classical Inheritance](#classical-inheritance)
+	- [Prototypal Inheritance](#prototypal-inheritance)
+	- [Reflection](#reflection)
+- [Building Objects](#building-objects)
+	- [_new_](#new)
+	- [Function constructors and Prototypes](#function-constructors-and-prototypes)
+	- [Built in Function Constructor](#built-in-function-constructor)
+	- [Arrays and for..in](#arrays-and-forin)
+	- [_Object.create_ and Pure prototypal inheritance](#objectcreate-and-pure-prototypal-inheritance)
+	- [Polyfill](#polyfill)
+	- [ES6 and Classes](#es6-and-classes)
+	- [_typeof_ and _instanceof_](#typeof-and-instanceof)
+	- [Strict Mode](#strict-mode)
+	- [Method Chaining](#method-chaining)
+- [Own Libraries architect as jQuery](#own-libraries-architect-as-jquery)
+	- [Greetr](#greetr)
+- [Bonus](#bonus)
+	- [Transpile](#transpile)
+
+<!-- /TOC -->
 ## Syntax parsers
 A program that reads your code and determine what it does and if its grammar is correct.
 
@@ -17,7 +89,7 @@ A name which maps to a unique value
 ```javascript
 
 	Address: '100 main str'
-```	
+```
 
 ## Object
 A collection of name value pairs.
@@ -42,15 +114,15 @@ A collection of name value pairs.
 
 * Global Object = Window Object in browsers.
 * 'this' = Window Object in browsers.
-* Link to the Outer Environment	
+* Link to the Outer Environment
 * Your code
 
-## Creation Phase: 
+## Creation Phase:
 
 * Global Object
 * 'this'
-* Outer Environment	
-* "Hoisting" Setup Memory Space for Variables and functions 
+* Outer Environment
+* "Hoisting" Setup Memory Space for Variables and functions
 	* Functions are set to memory entirely (name and code).
 	* Variables are set to a placeholder called _undefined_. Because the JS engine won't know the space until it executes it. All variables are initialy set to _undefined_.
 
@@ -76,7 +148,7 @@ Executes the code line by line.
 ## Single Threaded Synchronous Execution
 One at a time, in order.
 
-## Function invocation 
+## Function invocation
 Execute, run a function.
 
 ## Execution Stack
@@ -102,7 +174,7 @@ Where the variables live, and how they relate to each other in memory.
 ## Scope Chain
 Functions use outer environments to find variables that are not in its execution contexts.
 ```javascript
-	
+
 	function b() {
 		console.log(myVar);
 	}
@@ -116,17 +188,17 @@ Functions use outer environments to find variables that are not in its execution
 	a();
 	//Returns
 	> 1
-	//'b' outers environment is the global environment. 
+	//'b' outers environment is the global environment.
 ```
 
 ```javascript
 
 	function a() {
-	    
+
 	    function b() {
 	        console.log(myVar);
 	    }
-	    
+
 		b();
 	}
 
@@ -140,7 +212,7 @@ Functions use outer environments to find variables that are not in its execution
 ```
 
 ## Scope
-Scope is where a variable is available in your code 
+Scope is where a variable is available in your code
 
 ## ES6 let
 Block scoping: define a variable that it is only available in its block(if block, for loop block...), and can not be used until is declared.
@@ -173,7 +245,7 @@ Event Queue is processed after the execution stack is empty.
 	> finished execution // The execution task is empty
 	> click event
 
-```	
+```
 #3 Types and Operators
 ##Dynamic Typing
 Variable types are figured out while the code is running.
@@ -186,10 +258,10 @@ Data that represent a single value (not an object)
 3. `boolean`
 4. `number`: Floating point
 5. `string`
-6. `symbol`: ES6 
+6. `symbol`: ES6
 
 ##Operators
-A special function written differently as common functions. 
+A special function written differently as common functions.
 
 * Infix notation `3 + 4` used in javascript  
 * Prefix notation `+3 4`  
@@ -211,13 +283,13 @@ Associativity: What order Operator functions get called: left or right or right 
 Converting a value to one type to another
 
 ```javascript
-	
+
 	var a = 1 + '2';
 	// 12
 ```
 
-## Comparasion Operators
-Use `===` 99% of the time unlesss you want to coarce and you know what you spect of the coarce.
+## Comparison Operators
+Use `===` 99% of the time unless you want to coarce and you know what you expect of the coarce.
 
 [Equality comparisons and sameness](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
 
@@ -234,11 +306,10 @@ Use `===` 99% of the time unlesss you want to coarce and you know what you spect
 ```
 
 #Objects and Functions
-
 ##Objects and Dots
 
 ```javascript
-	
+
 	var person = new Object();
 
 	person["firstname"] = "Tony";
@@ -253,12 +324,12 @@ Use `===` 99% of the time unlesss you want to coarce and you know what you spect
 
 	// An object inside another object (subobjects).
 	person.address = new Object();
-	
+
 	// Left to right Associativity. Person then address then street.
 	person.address.street = "111 Main St.";
-	
+
 	console.log(person.address.street);
-	
+
 	//Same thing
 	console.log(person["address"]["street"]);
 
@@ -266,21 +337,20 @@ Use `===` 99% of the time unlesss you want to coarce and you know what you spect
 
 ##Object literals
 
-Shorthand using curly braces. 
+Shorthand using curly braces.
 ```javascript
 
-	var person = { 
+	var person = {
     	firstname: 'Tony', // They can be initialized
     	address: {
         	street: '111 Main St.',
     	}
 	};
-
 ```
 
 ```javascript
-	
-	var Tony = { 
+
+	var Tony = {
     	firstname: 'Tony',
     	address: {
         	street: '111 Main St.',
@@ -294,9 +364,9 @@ Shorthand using curly braces.
 	greet(Tony);
 
 	// Creating an object on the fly
-	greet({ 
-	    firstname: 'Mary', 
-	    lastname: 'Doe' 
+	greet({
+	    firstname: 'Mary',
+	    lastname: 'Doe'
 	});
 
 	// Add new properties on the fly
@@ -314,7 +384,7 @@ Faking name spacing Containt objects, methods and properties inside a container 
 ```javascript
 
 	var greet = 'Hello!';
-	var greet = 'Hola!'; 
+	var greet = 'Hola!';
 
 	console.log(greet); // Returns: Hola!
 
@@ -339,9 +409,9 @@ No functions as values
 **JSON**
 ```javascript
 
-	{ 
-		"firstname": "Mary", 
-		"isAProgrammer": true 
+	{
+		"firstname": "Mary",
+		"isAProgrammer": true
 	}
 ```
 
@@ -367,9 +437,9 @@ They can:
 * Pass functions as parameters
 * Create functions on the fly
 
-Fucntions are special Objects.
+Functions are special Objects.
 
-They can have 
+They can have
 
 * Primitives
 * Objects
@@ -389,7 +459,7 @@ Only for functions
 	console.log(greet.language); // 'english'
 ```
 
-##Functon Statements and Expression
+##Function Statements and Expression
 **Expression**: unit of code that results in a value
 
 **Statement**: Does not return a value ie. `if statement`
@@ -398,7 +468,7 @@ Function statement
 ```javascript
 
 	//This function has a name, but is not assigned
-	function greet() { 
+	function greet() {
     	console.log('hi');   
 	}
 
@@ -406,13 +476,13 @@ Function statement
 
 ```
 
-Function expression 
+Function expression
 ```javascript
 
 	//This function has no name, but is assigned to a variable
 	var anonymousGreet = function() {
     	console.log('hi');   
-	}	
+	}
 
 
 	anonymousGreet();
@@ -450,7 +520,7 @@ Pass a function to a function
 	c = { greeting: 'howdy' }; / // d and c do not point anymore to the same address
 	console.log(c);
 	console.log(d);
-	
+
 	//Returns
 	> howdy
 	> hi
@@ -461,7 +531,7 @@ Pass a function to a function
 Calling  `this` from a function,  will point always to the `Window` object.
 
 ```javascript
-	
+
 	function a() {
 	    console.log(this);
 	}
@@ -503,10 +573,10 @@ To fix this we can use the `self` pattern.
 	    name: 'The c object',
 	    log: function() {
 	        var self = this;
-	        
+
 	        self.name = 'Updated c object';
 	        console.log(self);
-	        
+
 	        var setname = function(newname) {
 	        	this.name = newname; // Here 'this' points to the 'Window' object instead of to 'c'
 	            self.name = newname; // Here 'this' points to 'c'  
@@ -524,8 +594,8 @@ Arrays can hold anything and we can use them without any problem.
 ```javascript
 
 	var arr = [
-	    1, 
-	    false, 
+	    1,
+	    false,
 	    {
 	        name: 'Tony',
 	        address: '111 Main St.'
@@ -590,13 +660,13 @@ Because there is a new line after `return` javascript automatically inserts a se
 
 	// unreachable code after return statement
 	function getPerson() {
-	    return 
+	    return
 	    {
 	        firstname: 'Tony'
 	    }
 	}
 
-	console.log(getPerson()); 
+	console.log(getPerson());
 
 ```
 
@@ -624,32 +694,32 @@ Run the function at the point it is created. Add a `()` after its declaration.
 ```
 
 **IIFE**
-```javascript	
-	
+```javascript
+
 	var firstname = 'John';
 
-	//Function statement wrapped in parenthesys so javascript treat is as valid
-	// Remeber function statement have to have a name.
+	//Function statement wrapped in parenthesis so javascript treat is as valid
+	// Remember function statement have to have a name.
 	(function(name) {
-	    
+
 	    var greeting = 'Inside IIFE: Hello';
 	    console.log(greeting + ' ' + name);
-	    
+
 	}(firstname)); // IIFE Execute the function on the fly
 ```
 
 ##IIFE and Safe code
 Frameworks normally use IIFE to have its code close to external code.  
 An IIFE runs in its own execution context.  
-A framework would start with a parenthesys and close with another.  
+A framework would start with a parenthesis and close with another.  
 
 ```javascript
-	
+
 	(function(global, name) {
 	    var greeting = 'Hello';
 	    global.greeting = 'Hello'; //We can access the global object passing it as a parameter.
 	    console.log(greeting + ' ' + name);
-	    
+
 	}(window, 'John')); // IIFE
 ```
 
@@ -659,7 +729,7 @@ Closures allow us to access variables whose execution context has been remove fr
 `greet` context is removed after `var sayHi = greet('Hi');`is executed, but `sayHi('Tony');` still have access to the variable `whattosay` that is needed to execute the annonymous function inside `greet` This is because javascript allows executon contexts to closes in its outer variables.
 
 ```javascript
-	
+
 	function greet(whattosay) {
 
 	   return function(name) {
@@ -669,7 +739,7 @@ Closures allow us to access variables whose execution context has been remove fr
 
 	var sayHi = greet('Hi');
 	sayHi('Tony');
-```	
+```
 
 
 ```javascript
@@ -685,7 +755,7 @@ Closures allow us to access variables whose execution context has been remove fr
 	            }
 	        )
 	    }
-	    
+
 	    return arr;
 	}
 
@@ -701,12 +771,12 @@ To make it work in prior ES6 We need to have `i` in a new execution context ever
 ```javascript
 
 	function buildFunctions2() {
- 
+
 	    var arr = [];
-	    
+
 	    for (var i = 0; i < 3; i++) {
 	        arr.push(
-	            (function(j) { // This function will be executed in a differnt execution context, 
+	            (function(j) { // This function will be executed in a differnt execution context,
 	            			   //  and all of them will be closed in in its closure.
 	                return function() { // We push the return of this function. So when this is call, instead of going up until the loop context, it only goes until the IIFE where 'j' was stored.
 	                    console.log(j);    
@@ -723,9 +793,9 @@ To make it work in prior ES6 We need to have `i` in a new execution context ever
 ```javascript
 
 	function makeGreeting(language) {
- 
+
 	    return function(firstname, lastname) {
-	     
+
 	        if (language === 'en') {
 	            console.log('Hello ' + firstname + ' ' + lastname);   
 	        }
@@ -760,10 +830,10 @@ It has:
 	    firstname: 'John',
 	    lastname: 'Doe',
 	    getFullName: function() {
-	        
+
 	        var fullname = this.firstname + ' ' + this.lastname;
 	        return fullname;
-	        
+
 	    }
 	}
 
@@ -788,13 +858,13 @@ It has:
 	}
 
 	console.log(person.getFullName.apply(person2));//or call()
-``` 
+```
 
 ##Function currying
 A copy of a function with preset parameters.
 
 ```javascript
-	
+
 	function multiply(a, b) {
     	return a*b;   
 	}
@@ -811,14 +881,14 @@ A copy of a function with preset parameters.
 ```javascript
 
 	function mapForEach(arr, fn) {
-    
+
 	    var newArr = [];
 	    for (var i=0; i < arr.length; i++) {
 	        newArr.push(
 	            fn(arr[i])   
 	        )
 	    };
-	    
+
 	    return newArr;
 	}
 
@@ -827,13 +897,13 @@ A copy of a function with preset parameters.
 
 	// Sample 1 add a function
 	var arr2 = mapForEach(arr1, function(item) {
-	   return item * 2; 
+	   return item * 2;
 	});
 	console.log(arr2); // [2,4,6];
 
 	// Sample 2 differnt output type
 	var arr3 = mapForEach(arr1, function(item) {
-	   return item > 2; 
+	   return item > 2;
 	});
 	console.log(arr3); //[false,false,true]
 
@@ -849,7 +919,7 @@ A copy of a function with preset parameters.
 	var checkPastLimitSimplified = function(limiter) {
 	    return function(limiter, item) {
 	        return item > limiter;   
-	    }.bind(this, limiter); 
+	    }.bind(this, limiter);
 	};
 
 	var arr5 = mapForEach(arr1, checkPastLimitSimplified(1));
@@ -875,7 +945,6 @@ Try to use always unmutable objects and return always new objects
 ```
 
 #Object Oriented JavaScript Prototypal Inheritance
-
 ##Inheritance
 One object gets access  to the properties and methods of another object.
 
@@ -884,9 +953,9 @@ Java, C++, ...
 
 ## Prototypal Inheritance
 JavaScript
-Simple, flexible, externsible.
+Simple, flexible, extensible.
 
-**Prototype** an object that is used (Inherited) by another object.
+**Prototype** an object that is used (Inherited) by another object.  
 Prototype chain. The chain of Prototypes that an object has.
 
 ```javascript
@@ -917,8 +986,8 @@ Prototype chain. The chain of Prototypes that an object has.
 	console.log(jane.getFullName()); // Jane Default
 ```
 
-## Reflection 
-An object can look at itself, listentning and changing its properties and methods
+## Reflection
+An object can look at itself, listening and changing its properties and methods
 
 ```javascript
 
@@ -934,7 +1003,7 @@ An object can look at itself, listentning and changing its properties and method
 ```
 
 **Extend** (Assign)
-Underscore library that place the properties in the object passed. 
+Underscore library that place the properties in the object passed.
 
 ```javascript
 
@@ -953,9 +1022,9 @@ Underscore library that place the properties in the object passed.
 
 	_.extend(john, jane, jim); //John will have the same properties as jim and jane
 
-	console.log(john); 
+	console.log(john);
 
-	//Returns 
+	//Returns
 	address: "111 Main St."
 	firstname: "John"
 	getFirstName: ()
@@ -964,27 +1033,26 @@ Underscore library that place the properties in the object passed.
 ```
 
 # Building Objects
-
 ##_new_
 
-`new` set the this keyword to a new empty object
+`new` set the this keyword to a new empty object  
 If nothing is return from that function, instead of returning _undefined_ it will return an empty object.
 
 **Function constructor**. A function that lets me construct an object
 
 ```javascript
 
-	function Person(firstname, lastname) { // This is a function constructor. 
-	 
-	    console.log(this); // Returns an empry object
+	function Person(firstname, lastname) { // This is a function constructor.
+
+	    console.log(this); // Returns an empty object
 	    this.firstname = firstname;
 	    this.lastname = lastname;
 	    console.log('This function is invoked.'); // It is invoked because we called `new`
-	    
+
 	}
 
 	var john = new Person('John', 'Doe');
-	console.log(john); //	Person { firstname: "John", lastname: "Doe" } 
+	console.log(john); //	Person { firstname: "John", lastname: "Doe" }
 ```
 
 ##Function constructors and Prototypes
@@ -997,7 +1065,7 @@ All functions have a prototype. An empty Object. Use only by the `new` operator.
 	}
 
 	var john = new Person('John', 'Doe'); // john points to Person.prototype as its prototype.
-	console.log(john); 
+	console.log(john);
 	//Returns
 	firstname: "John"
 	lastname: "Doe"
@@ -1006,21 +1074,21 @@ All functions have a prototype. An empty Object. Use only by the `new` operator.
 		getFullName: ()
 ```
 
-Why not having functions in the function constructor? 
+Why not having functions in the function constructor?  
 Every copy of the object will get a copy of the function (space in memory). If we have it in the prototype, only one copy of the function will exist in memory for any number of objects created.
 
-Use Capital letters as first letter in any function constructor to identify it easily as a function constructor and reduce possible erros when calling them. Use Linters to help ypu with the process.
+Use Capital letters as first letter in any function constructor to identify it easily as a function constructor and reduce possible errors when calling them. Use Linters to help you with the process.
 
 ## Built in Function Constructor
 Create objects that have primitives
 ```javascript
-	
+
 	var a = new Number(3) // a --> Number {[[PrimitiveValue]]: 3}
 
 	var b = new String("Hugo") // b --> String {0: "H", 1: "u", 2: "g", 3: "o", length: 4, [[PrimitiveValue]]: "Hugo"}
 	// inside of the String object there is a primitive.
 
-```	
+```
 Good to add functions to primitives objects
 
 ```javascript
@@ -1036,12 +1104,12 @@ Good to add functions to primitives objects
 	}
 	console.log(3.isPositive); // ERROR: 3 is not an object.
 
-	var a = new Number(3) 
+	var a = new Number(3)
 	a.isPositive() // true
 ```
 
 **They are dangeorous** better do not use built in function constructor, unless you really need them.
-You can look for libraries that help you. Like momentjs for Dates, instead of building your owns function constructor. 
+You can look for libraries that help you. Like momentjs for Dates, instead of building your owns function constructor.
 
 ## Arrays and for..in
 In an array the property name are the indexes, that is why we can use it in square brackets. `myArray[0]`
@@ -1051,12 +1119,12 @@ In an array the property name are the indexes, that is why we can use it in squa
 	var arr = ['John', 'Jane', 'Jim']
 	for (var prop in arr) {
 		console.log(prop + ': ' + arr[prop]); // 0:John, 1:Jane, 2:Jim
-	} 
+	}
 	// If we add
 	Array.prototype.myFeature='cool'; // it will return  0:John, 1:Jane, 2:Jim, myFeature:'cool'
 	//Use normal for loop
 
-```	
+```
 ## _Object.create_ and Pure prototypal inheritance
 
 ```javascript
@@ -1070,9 +1138,9 @@ In an array the property name are the indexes, that is why we can use it in squa
 	}
 
 	var john = Object.create(person); // Creates an empty object with the prototype of person
-	john.firstname = 'John'; // Adds values to the
+	john.firstname = 'John'; // Adds value
 	john.lastname = 'Doe';
-	console.log(john); 
+	console.log(john);
 ```
 
 We can add functions on the fly.
@@ -1138,7 +1206,7 @@ _class_  at the end it is just an object and _extends_ is syntactic sugar.
 
 	function logNewPerson() {
 	    "use strict";
-	    
+
 	    var person2;
 	    persom2 = {};
 	    console.log(persom2); //Uncaught exception
@@ -1149,4 +1217,139 @@ _class_  at the end it is just an object and _extends_ is syntactic sugar.
 	console.log(persom);
 	logNewPerson();
 ```
+##Method Chaining
+Calling one method after another, and each method affects the parent object.
 
+#Own Libraries architect as jQuery
+##Greetr
+```javascript
+
+	// IEFF needs the global object and the jQuery reference
+	;(function(global, $) {
+
+	    var Greetr = function(firstName, lastName, language){
+	        // Create a new Function Constructor which has the same parameters as the called
+	        // one from the client, but we return a new Object. The new object is created
+	        // because we call 'new' to  a Function Constructor
+	        return new Greetr.init(firstName, lastName, language);
+	    }
+
+	    // No access is possible here from outside the lobrarys
+	    var supportedLangs = ['en', 'es'];
+
+	    // Declaring and creating new variables that are not expose outside
+	    var greetings = {
+	        en:'Hello',
+	        es:'Hola'
+	    };
+
+	    var formalGreetings = {
+	        en:'Greetings',
+	        es:'Saludos'
+	    };
+
+	    var logMessages = {
+	        en:'Logged in',
+	        es:'Sesion iniciada'
+	    };
+
+	    Greetr.prototype = {
+	        // Exposed functions
+	        fullName: function() {
+	            return this.firstName +' '+ this.lastName;
+	        },
+
+	        validate: function(){
+	            if( supportedLangs.indexOf(this.language)==-1 ){
+	                throw "Invalid language"
+	            }
+	        },
+
+	        greeting: function(){
+	            return greetings[this.language] + ' ' + this.firstName + '!';
+	        },
+
+	        formalGreeting: function(){
+	            return formalGreetings[this.language] + ', ' + this.fullName();
+	        },
+
+	        greet: function(formal) {
+	            var msg;
+
+	            // if undefined or null it will be coerced to 'false'
+	            if (formal) {
+	                msg = this.formalGreeting();  
+	            }
+	            else {
+	                msg = this.greeting();  
+	            }
+
+	            if (console) {
+	                console.log(msg);
+	            }
+
+	            // 'this' refers to the calling object at execution time
+	            // makes the method chainable
+	            return this;
+	        },
+
+	        log: function() {
+	            if (console) {
+	                console.log(logMessages[this.language] + ': ' + this.fullName());
+	            }
+	            return this;
+	        },
+
+	        setLang: function(lang) {
+	            this.language = lang;
+	            this.validate();
+	            return this;
+	        },
+
+	        HTMLgreeting: function(selector, formal){
+	            if(!$){
+	                throw 'jQuery not loaded';
+	            }
+	            if(!selector){
+	                throw 'Missing jQuery selector'
+	            }
+
+	            var msg;
+	            if (formal) {
+	                msg = this.formalGreeting();  
+	            }
+	            else {
+	                msg = this.greeting();  
+	            }
+	            $(selector).html(msg);
+	            return this;
+	        }
+
+	    };
+
+	    Greetr.init     = function(firstName, lastName, language){
+	         // Keep 'this' safe to the future calls. We will always have this object in 'self'
+	        var self = this;
+	        // Default values
+	        self.firstName = firstName || '<Your first name here>';
+	        self.lastName = lastName || '<Your last name here>';
+	        self.language = language || "en"
+
+	        self.validate()
+	    }
+
+	    // 'Greetr.init.prototype' is the prototype of the init function. Every function
+	    // '.prototype' is where the prototype is. We wnat that our object prototype is
+	    // 'Greetr.prototype'  that we will define ourself.  
+	    // That way we point 'Greetr.init.prototype' to 'Greetr.prototype'.
+	    Greetr.init.prototype = Greetr.prototype;
+
+	    //Attach it to the global object to be accessed everywhere and Alias to G$
+	    global.Greetr = global.G$ = Greetr;
+
+
+	}(window, jQuery)); // we call teh function with the window(global) object and the jQuery reference
+```
+#Bonus
+## Transpile
+Convert the syntax of one programming language, to another.
