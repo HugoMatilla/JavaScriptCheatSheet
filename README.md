@@ -1,6 +1,5 @@
-
-#General Concepts<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
+#Table of Content
+- [Table of Contents](#table-of-content)
 - [General Concepts](#general-concepts)
 	- [Syntax parsers](#syntax-parsers)
 	- [Lexical environments](#lexical-environments)
@@ -72,6 +71,7 @@
 	- [Transpile](#transpile)
 
 <!-- /TOC -->
+#General Concepts
 ## Syntax parsers
 A program that reads your code and determine what it does and if its grammar is correct.
 
