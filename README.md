@@ -1,4 +1,4 @@
-#Table of Contents
+# Table of Contents
 - [Table of Contents](#table-of-content)
 - [General Concepts](#general-concepts)
 	- [Syntax parsers](#syntax-parsers)
@@ -71,7 +71,7 @@
 	- [Transpile](#transpile)
 
 <!-- /TOC -->
-#General Concepts
+# General Concepts
 ## Syntax parsers
 A program that reads your code and determine what it does and if its grammar is correct.
 
@@ -246,7 +246,7 @@ Event Queue is processed after the execution stack is empty.
 	> click event
 
 ```
-#3 Types and Operators
+# 3 Types and Operators
 ##Dynamic Typing
 Variable types are figured out while the code is running.
 
@@ -335,7 +335,7 @@ Use `===` 99% of the time unless you want to coarce and you know what you expect
 
 ```
 
-##Object literals
+## Object literals
 
 Shorthand using curly braces.
 ```javascript
@@ -526,7 +526,7 @@ Pass a function to a function
 	> hi
 ```
 
-##Objects, Functions and 'this'
+## Objects, Functions and 'this'
 
 Calling  `this` from a function,  will point always to the `Window` object.
 
@@ -588,7 +588,7 @@ To fix this we can use the `self` pattern.
 
 	c.log();
 ```
-##Arrays
+## Arrays
 Arrays can hold anything and we can use them without any problem.
 
 ```javascript
@@ -612,7 +612,7 @@ Arrays can hold anything and we can use them without any problem.
 
 ```
 
-##'arguments' and SPREAD
+## 'arguments' and SPREAD
 
 The keyword `arguments` hold all the parameters that you pass to a function.
 `arguments` is an _array like_ value.
@@ -635,7 +635,7 @@ The keyword `arguments` hold all the parameters that you pass to a function.
 	// and 'other' will be an array that contains the rest of the arguments
 ```
 
-##Overloading
+## Overloading
 
 Just create a function with different names.
 
@@ -708,7 +708,7 @@ Run the function at the point it is created. Add a `()` after its declaration.
 	}(firstname)); // IIFE Execute the function on the fly
 ```
 
-##IIFE and Safe code
+## IIFE and Safe code
 Frameworks normally use IIFE to have its code close to external code.  
 An IIFE runs in its own execution context.  
 A framework would start with a parenthesis and close with another.  
@@ -810,10 +810,10 @@ To make it work in prior ES6 We need to have `i` in a new execution context ever
 	var greetSpanish = makeGreeting('es');
 ```
 
-##Callback function
+## Callback function
 A function you give to another function when the other function is finished.
 
-##Function
+## Function
 Is a special type of object
 
 It has:
@@ -849,7 +849,7 @@ It has:
 
 ```
 
-##Function borrowing
+## Function borrowing
 ```javascript
 
 	var person2 = {
@@ -860,7 +860,7 @@ It has:
 	console.log(person.getFullName.apply(person2));//or call()
 ```
 
-##Function currying
+## Function currying
 A copy of a function with preset parameters.
 
 ```javascript
@@ -877,7 +877,7 @@ A copy of a function with preset parameters.
 
 ```
 
-##Functional programming
+## Functional programming
 ```javascript
 
 	function mapForEach(arr, fn) {
@@ -929,7 +929,7 @@ A copy of a function with preset parameters.
 
 Try to use always unmutable objects and return always new objects
 
-##Udnerscore.js
+## Udnerscore.js
 
 [Underscore](http://underscorejs.org/docs/underscore.html)
 [lodash](https://lodash.com/)
@@ -944,8 +944,8 @@ Try to use always unmutable objects and return always new objects
 
 ```
 
-#Object Oriented JavaScript Prototypal Inheritance
-##Inheritance
+# Object Oriented JavaScript Prototypal Inheritance
+## Inheritance
 One object gets access  to the properties and methods of another object.
 
 ## Classical Inheritance
@@ -1033,7 +1033,7 @@ Underscore library that place the properties in the object passed.
 ```
 
 # Building Objects
-##_new_
+## _new_
 
 `new` set the this keyword to a new empty object  
 If nothing is return from that function, instead of returning _undefined_ it will return an empty object.
@@ -1055,7 +1055,7 @@ If nothing is return from that function, instead of returning _undefined_ it wil
 	console.log(john); //	Person { firstname: "John", lastname: "Doe" }
 ```
 
-##Function constructors and Prototypes
+## Function constructors and Prototypes
 All functions have a prototype. An empty Object. Use only by the `new` operator.
 
 ```javascript
@@ -1200,7 +1200,7 @@ _class_  at the end it is just an object and _extends_ is syntactic sugar.
 	console.log(typeof z); // function
 ```
 
-##Strict Mode
+## Strict Mode
 
 ```javascript
 
@@ -1217,11 +1217,11 @@ _class_  at the end it is just an object and _extends_ is syntactic sugar.
 	console.log(persom);
 	logNewPerson();
 ```
-##Method Chaining
+## Method Chaining
 Calling one method after another, and each method affects the parent object.
 
-#Own Libraries architect as jQuery
-##Greetr
+# Own Libraries architect as jQuery
+## Greetr
 ```javascript
 
 	// IEFF needs the global object and the jQuery reference
@@ -1350,6 +1350,6 @@ Calling one method after another, and each method affects the parent object.
 
 	}(window, jQuery)); // we call teh function with the window(global) object and the jQuery reference
 ```
-#Bonus
+# Bonus
 ## Transpile
 Convert the syntax of one programming language, to another.
