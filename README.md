@@ -247,10 +247,10 @@ Event Queue is processed after the execution stack is empty.
 
 ```
 # 3 Types and Operators
-##Dynamic Typing
+## Dynamic Typing
 Variable types are figured out while the code is running.
 
-##Primitive Types
+## Primitive Types
 Data that represent a single value (not an object)
 
 1. `undefined`: lack of exixtence (do not set to this value)
@@ -260,7 +260,7 @@ Data that represent a single value (not an object)
 5. `string`
 6. `symbol`: ES6
 
-##Operators
+## Operators
 A special function written differently as common functions.
 
 * Infix notation `3 + 4` used in javascript  
@@ -305,8 +305,8 @@ Use `===` 99% of the time unless you want to coarce and you know what you expect
 	greet();
 ```
 
-#Objects and Functions
-##Objects and Dots
+# Objects and Functions
+## Objects and Dots
 
 ```javascript
 
@@ -459,7 +459,7 @@ Only for functions
 	console.log(greet.language); // 'english'
 ```
 
-##Function Statements and Expression
+## Function Statements and Expression
 **Expression**: unit of code that results in a value
 
 **Statement**: Does not return a value ie. `if statement`
